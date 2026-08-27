@@ -6,7 +6,7 @@
  * match the window to grok-bot.desktop.
  */
 
-const { app, BrowserWindow } = require("electron");
+const { app } = require("electron");
 const fs = require("fs");
 const path = require("path");
 
@@ -38,27 +38,13 @@ function findIcon() {
 
 const icon = findIcon();
 if (icon) {
-  const Original = BrowserWindow;
-  function WrappedBrowserWindow(options = {}) {
-    if (!options.icon) {
-      options = { ...options, icon };
-    }
-    return new Original(options);
-  }
-  Object.setPrototypeOf(WrappedBrowserWindow, Original);
-  WrappedBrowserWindow.prototype = Original.prototype;
-  for (const key of Object.getOwnPropertyNames(Original)) {
-    if (key === "length" || key === "name" || key === "prototype") {
-      continue;
-    }
+  app.on("browser-window-created", (_event, win) => {
     try {
-      WrappedBrowserWindow[key] = Original[key];
+      win.setIcon(icon);
     } catch {
-      // ignore read-only statics
+      // setIcon is unavailable on some platforms; ignore
     }
-  }
-  require.cache[require.resolve("electron")].exports.BrowserWindow =
-    WrappedBrowserWindow;
+  });
 }
 
 require("./dist/electron-main/main.cjs");

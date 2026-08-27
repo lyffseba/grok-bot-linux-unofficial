@@ -34,7 +34,7 @@ def run(cmd: list[str], cwd: Path | None = None) -> None:
 def npm_pack_extract(spec: str, dest: Path) -> Path:
     dest.mkdir(parents=True, exist_ok=True)
     tmp = Path(tempfile.mkdtemp(prefix="gb-npm-"))
-    run(["npm", "pack", "--ignore-scripts", spec], cwd=tmp)
+    run(["npm", "pack", "--ignore-scripts", "--silent", spec], cwd=tmp)
     tgz = next(tmp.glob("*.tgz"))
     with tarfile.open(tgz, "r:gz") as archive:
         archive.extractall(tmp / "ex")
@@ -54,9 +54,10 @@ def compile_native(src: Path, dest: Path, name: str) -> None:
     include = os.environ.get("GROKBOT_NODE_INCLUDE", "")
     if not include or not Path(include, "node_api.h").is_file():
         raise RuntimeError("GROKBOT_NODE_INCLUDE must point at node_api.h")
+    compiler = "g++" if src.suffix in {".cc", ".cpp", ".cxx"} else "gcc"
     run(
         [
-            "g++",
+            compiler,
             "-shared",
             "-fPIC",
             "-O2",
