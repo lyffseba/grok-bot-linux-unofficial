@@ -1,0 +1,14 @@
+.cache/
+dist/
+build/
+tmp/
+*.exe
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+*.tar.gz
+node_modules/
+.asar-unpacked/
+*.log
+.DS_Store

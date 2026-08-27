@@ -1,0 +1,14 @@
+#!/bin/sh
+# AppImage entry point. Chromium's setuid sandbox cannot work inside an
+# AppImage, so --no-sandbox is required here.
+SELF="$(readlink -f "$0")"
+HERE="${SELF%/*}"
+
+export APPDIR="$HERE"
+cd "$HERE" || exit 1
+
+if [ -z "${GDK_BACKEND:-}" ] && [ -n "${WAYLAND_DISPLAY:-}" ]; then
+  set -- --ozone-platform-hint=auto "$@"
+fi
+
+exec "$HERE/usr/bin/grok-bot" --no-sandbox --class=grok-bot "$@"
