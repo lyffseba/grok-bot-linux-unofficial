@@ -1,12 +1,13 @@
 [Desktop Entry]
-Name=Grok Bot
-Comment=Unofficial Linux build of the Grok Bot desktop app
+Name=Grok Bot (Unofficial)
+GenericName=Grok Bot
+Comment=Unofficial Linux build of Grok Bot. Not affiliated with xAI or Cursor.
 Exec=grok-bot %U
 Icon=grok-bot
 Type=Application
-Categories=Network;Office;
+Categories=Network;
 Terminal=false
 StartupNotify=true
 StartupWMClass=grok-bot
 MimeType=x-scheme-handler/grokbot;x-scheme-handler/sand;
-Keywords=Grok;Cursor;xAI;Bot;
+Keywords=Grok;Cursor;xAI;Bot;Unofficial;Linux;

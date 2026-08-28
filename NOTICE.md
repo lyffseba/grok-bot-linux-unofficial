@@ -10,3 +10,7 @@ eligible plan.
 
 Grok Bot, Cursor, and related marks belong to their respective owners.
 This project is unofficial and unaffiliated.
+
+The Linux port was created by [jakob-bu](https://github.com/jakob-bu).
+This fork keeps that work and adds a user-local app-menu install.
+See [THANKS.md](THANKS.md).
